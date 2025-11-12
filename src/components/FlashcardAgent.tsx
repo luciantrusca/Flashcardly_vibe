@@ -7,9 +7,10 @@ import { Sparkles, Loader2 } from 'lucide-react';
 interface FlashcardAgentProps {
   onGenerate: (prompt: string) => void;
   isGenerating: boolean;
+  maxCards: number;
 }
 
-export function FlashcardAgent({ onGenerate, isGenerating }: FlashcardAgentProps) {
+export function FlashcardAgent({ onGenerate, isGenerating, maxCards }: FlashcardAgentProps) {
   const [prompt, setPrompt] = useState('');
 
   const handleSubmit = () => {
@@ -65,9 +66,14 @@ export function FlashcardAgent({ onGenerate, isGenerating }: FlashcardAgentProps
         </div>
 
         <div className="flex justify-between items-center pt-2">
-          <p className="text-sm text-slate-500">
-            Press <kbd className="px-2 py-1 bg-slate-100 rounded border border-slate-300">Cmd/Ctrl + Enter</kbd> to generate
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-slate-500">
+              Press <kbd className="px-2 py-1 bg-slate-100 rounded border border-slate-300">Cmd/Ctrl + Enter</kbd> to generate
+            </p>
+            <p className="text-xs text-slate-400">
+              Maximum {maxCards} flashcards per generation
+            </p>
+          </div>
           <Button
             onClick={handleSubmit}
             disabled={!prompt.trim() || isGenerating}

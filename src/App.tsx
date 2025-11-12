@@ -10,29 +10,54 @@ export interface Flashcard {
   notes: string;
 }
 
+const MAX_FLASHCARDS = 100;
+
 export default function App() {
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+  const [collection, setCollection] = useState<Flashcard[]>([]);
+  const [previewCards, setPreviewCards] = useState<Flashcard[]>([]);
+  const [lastPrompt, setLastPrompt] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGenerate = async (prompt: string) => {
     setIsGenerating(true);
+    setLastPrompt(prompt);
     
     // Simulate AI generation delay
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Mock AI-generated flashcards based on prompt
-    const newFlashcards = generateMockFlashcards(prompt);
-    setFlashcards(prev => [...prev, ...newFlashcards]);
+    // Mock AI-generated flashcards based on prompt (limited to MAX_FLASHCARDS)
+    const newFlashcards = generateMockFlashcards(prompt).slice(0, MAX_FLASHCARDS);
+    setPreviewCards(newFlashcards);
     
     setIsGenerating(false);
   };
 
-  const handleDelete = (id: string) => {
-    setFlashcards(prev => prev.filter(card => card.id !== id));
+  const handleRegenerate = async () => {
+    if (!lastPrompt) return;
+    await handleGenerate(lastPrompt);
   };
 
-  const handleClear = () => {
-    setFlashcards([]);
+  const handleAddToCollection = () => {
+    setCollection(prev => [...prev, ...previewCards]);
+    setPreviewCards([]);
+    setLastPrompt('');
+  };
+
+  const handleDeletePreview = (id: string) => {
+    setPreviewCards(prev => prev.filter(card => card.id !== id));
+  };
+
+  const handleDeleteCollection = (id: string) => {
+    setCollection(prev => prev.filter(card => card.id !== id));
+  };
+
+  const handleClearPreview = () => {
+    setPreviewCards([]);
+    setLastPrompt('');
+  };
+
+  const handleClearCollection = () => {
+    setCollection([]);
   };
 
   return (
@@ -46,13 +71,31 @@ export default function App() {
         <FlashcardAgent 
           onGenerate={handleGenerate} 
           isGenerating={isGenerating}
+          maxCards={MAX_FLASHCARDS}
         />
 
-        {flashcards.length > 0 && (
+        {previewCards.length > 0 && (
           <FlashcardTable 
-            flashcards={flashcards}
-            onDelete={handleDelete}
-            onClear={handleClear}
+            title="Preview"
+            description="Review the generated flashcards below"
+            flashcards={previewCards}
+            onDelete={handleDeletePreview}
+            onClear={handleClearPreview}
+            isPreview={true}
+            onAddToCollection={handleAddToCollection}
+            onRegenerate={handleRegenerate}
+            isRegenerating={isGenerating}
+          />
+        )}
+
+        {collection.length > 0 && (
+          <FlashcardTable 
+            title="My Collection"
+            description="All your saved flashcards"
+            flashcards={collection}
+            onDelete={handleDeleteCollection}
+            onClear={handleClearCollection}
+            isPreview={false}
           />
         )}
       </div>
