@@ -1,13 +1,6 @@
 export const MAX_FLASHCARDS: number = 10;
 
 export const SYSTEM_PROMPT = `
-Follow the rulebook and the description of the target category. Generate ${MAX_FLASHCARDS} flashcards.
-
-Here’s the target category and rulebook:
-
-Target Category:
-Technology & Modern World
-
 Rulebook v7
 Column schema (exact order)
 Front, Back, Tags
@@ -47,4 +40,9 @@ Front	Back	Tags
 stavilă — Hărnicia râului a întâlnit o stavilă veche din lemn.	weir / barrier | Morphology: f., pl. stavile | Register: technical (hydrology) | Collocations: pune stavilă; ridica o stavilă | FalseFriends: Not “stable”.	noun;water;B2
 ghindă — Veverița a îngropat o ghindă sub frunzele ude.	acorn | Morphology: f., pl. ghinde | Register: rural | Collocations: ghindă de stejar; strânge ghinde	noun;plants;B1
 
-`;
+
+
+Follow the rulebook and the description of the target category. Generate ${MAX_FLASHCARDS} flashcards.
+
+Here’s the target category:
+`
