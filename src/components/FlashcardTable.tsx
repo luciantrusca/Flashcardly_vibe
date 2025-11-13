@@ -1,4 +1,4 @@
-import { Flashcard } from '../App';
+import { Flashcard } from '../types/flashcard';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import {
@@ -40,8 +40,6 @@ export function FlashcardTable({
       ...flashcards.map(card => [
         card.front,
         card.back,
-        card.example,
-        card.notes
       ])
     ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
 

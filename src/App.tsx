@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FlashcardAgent } from './components/FlashcardAgent';
 import { FlashcardTable } from './components/FlashcardTable';
-import Flashcard from './types/Flashcard';
+import {Flashcard} from './types/flashcard';
 import generateFlashcards from './services/geminiClient';
 
 export default function App() {
