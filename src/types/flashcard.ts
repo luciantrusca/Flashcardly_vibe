@@ -1,16 +1,9 @@
-// export default interface Flashcard {
-//   id: string;
-//   front: string;
-//   back: string;
-//   tags: string;
-//   }
 import { z } from "zod";
 
 
 export const apiFlashcardSchema =
   z.array(
       z.object ({
-      id: z.string().uuid(),
       front: z.string().describe(
           "* Front — Romanian headword — sentence (Romanian-only)." +
           "* Front: natural Romanian with diacritics; image-rich; use one em dash — between headword and sentence." +
@@ -28,4 +21,14 @@ export const apiFlashcardSchema =
       )
 }))
 
-export type Flashcard = z.infer<typeof apiFlashcardSchema>[0]; // [0] gets the array element type
+export type apiFlashcard = z.infer<typeof apiFlashcardSchema>[0]; // [0] gets the array element type
+
+
+// export type Flashcard = apiFlashcard
+
+export interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+  tags: string;
+  }

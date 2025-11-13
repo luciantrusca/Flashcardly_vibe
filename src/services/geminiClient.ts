@@ -1,9 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
-import {Flashcard} from '../types/flashcard.js'
+import {apiFlashcard, Flashcard} from '../types/Flashcard.js'
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import {SYSTEM_PROMPT} from '../config/flashcardConfig.js'
-import { apiFlashcardSchema } from "../types/flashcard.js";
+import { apiFlashcardSchema } from "../types/Flashcard.js";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
@@ -16,6 +16,12 @@ const ai = new GoogleGenAI({
     httpOptions: {apiVersion: "v1alpha" }
   });
 
+
+
+function addIds(apiFlashcards: apiFlashcard[]): Flashcard[]{
+    let flashcards = apiFlashcards.map((flashcard) => ({...flashcard, id: crypto.randomUUID()}))
+    return flashcards
+}
 // const apiFlashcardSchema =
 //     z.array(
 //         z.object ({
@@ -57,11 +63,15 @@ export default async function generateFlashcards(themePrompt: string): Promise<F
     }
 
     // Turning api response into json
-    let flashcards: Flashcard[] = []
+    let apiFlashcards: apiFlashcard[] = []
+    let idFlashcards: Flashcard[] = []
     try {
-        flashcards = apiFlashcardSchema.parse(JSON.parse(text));
+        apiFlashcards = apiFlashcardSchema.parse(JSON.parse(text));
+        idFlashcards = addIds(apiFlashcards);
     } catch (error) {
         console.log("api text:", text,  error)
     }
-    return flashcards;
+    return idFlashcards;
 }
+
+
