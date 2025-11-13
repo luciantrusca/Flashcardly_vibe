@@ -20,6 +20,7 @@ const ai = new GoogleGenAI({
 const flashcardSchema =
     z.array(
         z.object ({
+        id: z.string().uuid(),
         front: z.string().describe(
             "* Front — Romanian headword — sentence (Romanian-only)." +
             "* Front: natural Romanian with diacritics; image-rich; use one em dash — between headword and sentence." +
