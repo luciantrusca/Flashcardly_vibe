@@ -12,6 +12,5 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["src/services/**/*"]
+"include": ["src/services/**/*", "src/types/**/*", "src/config/**/*"]
 }
-
