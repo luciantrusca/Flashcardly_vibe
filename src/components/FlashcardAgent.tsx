@@ -7,7 +7,7 @@ import { Sparkles, Loader2 } from 'lucide-react';
 interface FlashcardAgentProps {
   onGenerate: (prompt: string) => void;
   isGenerating: boolean;
-  maxCards: number;
+  maxCards?: number;
 }
 
 export function FlashcardAgent({ onGenerate, isGenerating, maxCards }: FlashcardAgentProps) {
@@ -17,6 +17,7 @@ export function FlashcardAgent({ onGenerate, isGenerating, maxCards }: Flashcard
     if (prompt.trim()) {
       onGenerate(prompt);
       setPrompt('');
+      
     }
   };
 
