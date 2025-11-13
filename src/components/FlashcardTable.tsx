@@ -135,20 +135,13 @@ export function FlashcardTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[200px]">Front (Word/Phrase)</TableHead>
-              <TableHead className="w-[200px]">Back (Translation)</TableHead>
-              <TableHead>Example Sentence</TableHead>
-              <TableHead className="w-[200px]">Notes</TableHead>
-              <TableHead className="w-[80px]">Actions</TableHead>
-            </TableRow>
+            <TableHead className="w-[80px]">Actions</TableHead>
+            <TableHead className="min-w-[200px]">Front (Word/Phrase)</TableHead>
+            <TableHead className="min-w-[200px]">Back (Translation)</TableHead>            </TableRow>
           </TableHeader>
           <TableBody>
             {flashcards.map((card) => (
               <TableRow key={card.id} className="hover:bg-slate-50">
-                <TableCell>{card.front}</TableCell>
-                <TableCell>{card.back}</TableCell>
-                <TableCell className="text-slate-600">{card.example}</TableCell>
-                <TableCell className="text-slate-500 text-sm">{card.notes}</TableCell>
                 <TableCell>
                   <Button
                     variant="ghost"
@@ -159,7 +152,8 @@ export function FlashcardTable({
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </TableCell>
-              </TableRow>
+                <TableCell className="max-w-[300px] break-words whitespace-normal">{card.front}</TableCell>
+                <TableCell className="max-w-[300px] break-words whitespace-normal">{card.back}</TableCell>              </TableRow>
             ))}
           </TableBody>
         </Table>
