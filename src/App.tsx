@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import { FlashcardAgent } from './components/FlashcardAgent';
 import { FlashcardTable } from './components/FlashcardTable';
-
-export interface Flashcard {
-  id: string;
-  front: string;
-  back: string;
-  example: string;
-  notes: string;
-}
-
-const MAX_FLASHCARDS = 100;
+import Flashcard from './types/flashcard';
+import {MAX_FLASHCARDS} from './config/flashcardConfig'
 
 export default function App() {
   const [collection, setCollection] = useState<Flashcard[]>([]);
