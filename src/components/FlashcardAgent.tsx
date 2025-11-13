@@ -32,7 +32,8 @@ export function FlashcardAgent({ onGenerate, isGenerating, maxCards }: Flashcard
     'Create 5 Spanish food vocabulary flashcards',
     'Generate French greetings with examples',
     'Make German basic verbs flashcards',
-    'Create Spanish greeting phrases'
+    'Create Spanish greeting phrases',
+    'Verbs of Action & Movement'
   ];
 
   return (

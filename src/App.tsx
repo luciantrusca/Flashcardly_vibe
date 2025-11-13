@@ -14,9 +14,6 @@ export default function App() {
     setIsGenerating(true);
     setLastPrompt(prompt);
 
-    // // Simulate AI generation delay
-    // await new Promise(resolve => setTimeout(resolve, 2000));
-
     // AI-generated flashcards based on prompt
     const newFlashcards = generateFlashcards(prompt);
     setPreviewCards(await newFlashcards);
