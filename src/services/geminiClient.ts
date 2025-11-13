@@ -1,12 +1,10 @@
-import * as dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import Flashcard from '../types/flashcard.js'
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import {SYSTEM_PROMPT} from '../config/flashcardConfig.js'
 
-dotenv.config();
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!apiKey) {
   throw new Error("Missing GEMINI_API_KEY environment variable");
@@ -39,10 +37,10 @@ const flashcardSchema =
 }))
 
 
-export default async function generateFlashcards(): Promise<Flashcard[]> {
+export default async function generateFlashcards(themePrompt: string): Promise<Flashcard[]> {
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-lite",
-    contents: SYSTEM_PROMPT,
+    contents: SYSTEM_PROMPT + themePrompt,
     config: {
         responseMimeType: "application/json",
         responseJsonSchema: zodToJsonSchema(flashcardSchema),
@@ -64,5 +62,3 @@ export default async function generateFlashcards(): Promise<Flashcard[]> {
     }
     return flashcards;
 }
-
-console.log(await generateFlashcards())
