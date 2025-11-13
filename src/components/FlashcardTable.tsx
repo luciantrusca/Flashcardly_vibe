@@ -135,9 +135,10 @@ export function FlashcardTable({
         <Table>
           <TableHeader>
             <TableRow>
-            <TableHead className="w-[80px]">Actions</TableHead>
-            <TableHead className="min-w-[200px]">Front (Word/Phrase)</TableHead>
-            <TableHead className="min-w-[200px]">Back (Translation)</TableHead>            </TableRow>
+              <TableHead className="w-[80px]">Actions</TableHead>
+              <TableHead className="min-w-[200px]">Front (Word/Phrase)</TableHead>
+              <TableHead className="min-w-[200px]">Back (Translation)</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {flashcards.map((card) => (
